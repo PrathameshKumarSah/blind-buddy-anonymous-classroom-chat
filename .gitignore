@@ -1,0 +1,15 @@
+# Node/Vite shared environment
+.DS_Store
+.env
+.env.*.local
+dist/
+build/
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS-specific
+Thumbs.db

@@ -7,12 +7,12 @@ function Menu () {
     <div className='Navbars'>
         <ul className='NavbarWrappers'>
         <li className="NavbarElement">
-            <NavLink className="Links" to="/home">
+            <NavLink className="Links" to="/">
               Home
             </NavLink>
         </li>
         <li className="NavbarElement">
-            <NavLink className="Links" to="/home">
+            <NavLink className="Links" to="/">
               About
             </NavLink>
           </li>
@@ -22,7 +22,7 @@ function Menu () {
             </NavLink>
           </li>
           <li className="NavbarElement">
-            <NavLink className="Links" to="/home">
+            <NavLink className="Links" to="/">
               Contact
             </NavLink>
           </li>

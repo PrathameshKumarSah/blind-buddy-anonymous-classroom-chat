@@ -17,7 +17,7 @@ function Navbar({ clicked, isClicked }) {
           </Link>
         </li>
         <li className="NavElements1">
-          <NavLink className="Link" to="/home">
+          <NavLink className="Link" to="/">
             Home
           </NavLink>
         </li>
@@ -27,12 +27,12 @@ function Navbar({ clicked, isClicked }) {
           </NavLink>
         </li>
         <li className="NavElements2">
-          <NavLink className="Link" to="/home">
+          <NavLink className="Link" to="/">
             About
           </NavLink>
         </li>
         <li className="NavElements3">
-          <NavLink className="Link" to="/home">
+          <NavLink className="Link" to="/">
             Contact
           </NavLink>
         </li>

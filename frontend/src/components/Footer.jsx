@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Banner from "../components/Banner";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 // import Facebook from '../Icons/Facebook'
 
 const Section = styled.section`
@@ -67,7 +67,7 @@ const Item = styled.li`
   }
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 0;
     height: 2px;
@@ -78,7 +78,7 @@ const Item = styled.li`
   &:hover::after {
     width: 100%;
   }
-`
+`;
 
 const Bottom = styled.div`
   width: 75%;
@@ -105,13 +105,34 @@ const Footer = () => {
             <Link to="/">About</Link>
           </Item>
 
-          <Item><Link to="/">Contact</Link></Item>
-          <Item><Link to="/login">Login/signup</Link></Item>
+          <Item>
+            <Link to="/">Contact</Link>
+          </Item>
+          <Item>
+            <Link to="/login">Login/signup</Link>
+          </Item>
         </MenuItems>
       </Container>
       <Bottom>
-        <span>&copy; {new Date().getFullYear()} Blind Buddy. All rights reserved.</span>
-        <span>Made with &#10084; by Blind Buddy!</span>
+        <span>
+          &copy; {new Date().getFullYear()} Blind Buddy. All rights reserved.
+        </span>
+        <span>
+          Made with &#10084; by{" "}
+          <a
+            href="https://github.com/PrathameshKumarSah/blind-buddy-anonymous-classroom-chat"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "red", textDecoration: "none" }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.textDecoration = "underline")
+            }
+            onMouseOut={(e) => (e.currentTarget.style.textDecoration = "none")}
+          >
+            Blind Buddy
+          </a>
+          !
+        </span>
       </Bottom>
     </Section>
   );

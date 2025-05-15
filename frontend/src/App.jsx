@@ -35,6 +35,7 @@ const App = () => {
   return (
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/chat" element={authUser ? <div data-theme={theme}><Navbar /> <HomePage /><Toaster /> </div> : <Navigate to="/login" />} />  
         <Route path="/signup" element={!authUser ? <div data-theme={theme}><Navbar /> <SignUpPage /> <Toaster /> </div> : <Navigate to="/chat" />} />
         <Route path="/login" element={!authUser ? <div data-theme={theme}><Navbar /> <LoginPage /><Toaster /> </div> : <Navigate to="/chat" />} />

@@ -21,7 +21,7 @@ export const useAuthStore = create((set, get) => ({
       set({ authUser: res.data });
       get().connectSocket();
     } catch (error) {
-      console.log("Error in checkAuth:", error);
+      console.error("Error in checkAuth:", error);
       set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
@@ -30,7 +30,6 @@ export const useAuthStore = create((set, get) => ({
 
   signup: async (data) => {
     set({ isSigningUp: true });
-    console.log(data)
     try {
       const res = await axiosInstance.post("/auth/signup", data);
       set({ authUser: res.data });
@@ -72,12 +71,12 @@ export const useAuthStore = create((set, get) => ({
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
     try {
-      console.log(data);
+      // console.log(data);
       const res = await axiosInstance.post("/auth/update-profile", {data});
       set({ authUser: res.data });
       toast.success("Profile updated successfully");
     } catch (error) {
-      console.log("error in update profile:", error);
+      console.error("error in update profile:", error);
       toast.error(error.response.data.message);
     } finally {
       set({ isUpdatingProfile: false });
@@ -90,7 +89,6 @@ export const useAuthStore = create((set, get) => ({
     if (!authUser || get().socket?.connected) return;
     // const { groups, getGroups } = useChatStore();
     // getGroups();
-    console.log(authUser);
     const socket = io(BASE_URL, {
       query: {
         userId: authUser._id,

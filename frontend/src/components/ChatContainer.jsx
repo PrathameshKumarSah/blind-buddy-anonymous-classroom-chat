@@ -47,11 +47,6 @@ const ChatContainer = () => {
     return msg.msgType=='p' ? msg.senderId === authUser._id : msg.receiverId === authUser._id;
   }
 
-  const msgReport = async (id) => {
-    const choice = confirm('Are you wanted to report this message!!!');
-    await console.log(choice);
-  }
-
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />

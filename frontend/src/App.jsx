@@ -19,13 +19,11 @@ const App = () => {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
   const { theme } = useThemeStore();
 
-  console.log({ onlineUsers });
+  // console.log({ onlineUsers });
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-
-  console.log({ authUser });
 
   if (isCheckingAuth && !authUser)
     return (
@@ -35,20 +33,14 @@ const App = () => {
     );
 
   return (
-    
-    // <div data-theme={theme}>
-    //   
       <Routes>
-        <Route path="/" element={authUser ? <div data-theme={theme}><Navbar /> <HomePage /><Toaster /> </div> : <Navigate to="/login" />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/signup" element={!authUser ? <div data-theme={theme}><Navbar /> <SignUpPage /> <Toaster /> </div> : <Navigate to="/" />} />
-        <Route path="/login" element={!authUser ? <div data-theme={theme}><Navbar /> <LoginPage /><Toaster /> </div> : <Navigate to="/" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={authUser ? <div data-theme={theme}><Navbar /> <HomePage /><Toaster /> </div> : <Navigate to="/login" />} />  
+        <Route path="/signup" element={!authUser ? <div data-theme={theme}><Navbar /> <SignUpPage /> <Toaster /> </div> : <Navigate to="/chat" />} />
+        <Route path="/login" element={!authUser ? <div data-theme={theme}><Navbar /> <LoginPage /><Toaster /> </div> : <Navigate to="/chat" />} />
         <Route path="/settings" element={<div data-theme={theme}><Navbar /> <SettingsPage /><Toaster /> </div>} />
         <Route path="/profile" element={authUser ? <div data-theme={theme}><Navbar />  <ProfilePage /> <Toaster /> </div> : <Navigate to="/login" />} />
       </Routes>
-
-      // <Toaster />
-    // </div>
   );
 };
 export default App;

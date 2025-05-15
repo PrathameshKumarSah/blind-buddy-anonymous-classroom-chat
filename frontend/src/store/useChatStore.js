@@ -40,12 +40,9 @@ export const useChatStore = create((set, get) => ({
     set({ isMessagesLoading: true });
     try {
       const res = await axiosInstance.get(`/messages/${userId}`);
-      console.log("get msg");
-      console.log(res.data);
-      // console.log({messages});
       set({ messages: res.data });
     } catch (error) {
-      console.log("error in get msg");
+      console.error("error in get msg");
       toast.error(error.response.data.message);
     } finally {
       set({ isMessagesLoading: false });
@@ -54,9 +51,9 @@ export const useChatStore = create((set, get) => ({
 
   sendMessage: async (messageData) => {
     const { selectedUser, messages } = get();
-    console.log("send msg");
-    console.log(selectedUser);
-    console.log(messages);
+    // console.log("send msg");
+    // console.log(selectedUser);
+    // console.log(messages);
     try {
       // if(selectedUser._id){
       //   const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
@@ -77,11 +74,8 @@ export const useChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
 
     socket.on("newMessage", (newMessage) => {
-      console.log("new message");
-      console.log(newMessage);
-      console.log(newMessage.receiverId === selectedUser._id);
       let isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser && !(newMessage.receiverId === selectedUser._id) ) {console.log("error on newMessage listening");return;}
+      if (!isMessageSentFromSelectedUser && !(newMessage.receiverId === selectedUser._id) ) return;
 
       set({
         messages: [...get().messages, newMessage],

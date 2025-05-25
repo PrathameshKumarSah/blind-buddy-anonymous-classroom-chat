@@ -12,8 +12,8 @@ function Navbar({ clicked, isClicked }) {
     <div className="Nav">
       <ul className="NavbarWrapper">
         <li className="NavLogo">
-          <Link className="Link" to="/">
-            <img src={"./images/wets.png"}></img>
+          <Link className="Link" to="/" aria-label="Blind Buddy logo">
+            <img src={"./images/wets.png"} alt="Logo - Blind Buddy"></img>
           </Link>
         </li>
         <li className="NavElements1">

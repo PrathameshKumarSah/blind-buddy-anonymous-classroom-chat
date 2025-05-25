@@ -13,10 +13,10 @@ const Navbar = () => {
       <div className="container mx-auto px-4 h-16">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
+            <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-all" aria-label="Blind Buddy logo">
               <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                 {/* <MessageSquare className="w-5 h-5 text-primary" /> */}
-                <img className="text-lg font-bold" src={"./images/wets.png"} />
+                <img className="text-lg font-bold" src={"./images/wets.png"}  alt="Logo - Blind Buddy" />
               </div>
               {/* <h1 className="text-lg font-bold">Blind Buddies</h1> */}
             </Link>

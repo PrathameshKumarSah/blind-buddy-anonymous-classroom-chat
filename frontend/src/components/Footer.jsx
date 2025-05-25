@@ -94,7 +94,7 @@ const Footer = () => {
       <Banner />
       <Container>
         <Left>
-          <img src={"./images/wets.png"}></img>
+          <img src={"./images/wets.png"} alt="Logo - Blind Buddy"></img>
           <IconList>{/* <Facebook /> */}</IconList>
         </Left>
         <MenuItems>

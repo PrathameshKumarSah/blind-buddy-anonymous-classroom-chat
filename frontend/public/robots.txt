@@ -1,0 +1,6 @@
+# robots.txt for Blind Buddy
+
+User-agent: *
+Disallow:
+
+Sitemap: https://blind-buddy.onrender.com/sitemap.xml

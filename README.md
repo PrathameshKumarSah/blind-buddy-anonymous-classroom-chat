@@ -123,8 +123,14 @@ npm run dev
   <h2 style="color: #444;">🙌 Contribution</h2>
   <p>We welcome contributions! Feel free to fork the repo and submit a pull request.</p>
 
-  <h2 style="color: #444;">🧑‍💻 Author</h2>
-  <p><a href="https://github.com/PrathameshKumarSah">Prathamesh Kumar Sah</a></p>
+  <h2 style="color: #444;">🧑‍💻 Authors</h2>
+  <ul>
+    <li><a href="https://github.com/PrathameshKumarSah" target="_blank">Prathamesh Kumar Sah</a></li>
+    <li><a href="https://github.com/sandy152001" target="_blank">Sahil Kumar</a></li>
+    <li><a href="https://github.com/Sahil-Verma30" target="_blank">Sahil Verma</a></li>
+    <li><a href="https://github.com/vijay649" target="_blank">Vijay Sharma</a></li>
+  </ul>
+
 
   <h2 style="color: #444;">⭐ Support</h2>
   <p>If you like the idea of Blind Buddy, consider giving a ⭐ to support the project!</p>

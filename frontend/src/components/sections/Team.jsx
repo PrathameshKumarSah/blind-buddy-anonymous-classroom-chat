@@ -103,10 +103,10 @@ const Team = () => {
         <Container>
         <MemberComponent img={img1} name="Aisha" />
             <MemberComponent img={img2} name="Vijay"/>
-            <MemberComponent img={img3} name="Sahil"/>
+            <MemberComponent img={img3} name="Sahil Kumar"/>
             <MemberComponent img={img4} name="Geeta"/>
             <MemberComponent img={img5} name="Prathamesh"/>
-            <MemberComponent img={img6} name="SahilV"/>
+            <MemberComponent img={img6} name="Sahil Verma"/>
             <MemberComponent img={img7} name="Virat"/>
             <MemberComponent img={img8} name="Sachin"/>
             <MemberComponent img={img9} name="Noni"/>

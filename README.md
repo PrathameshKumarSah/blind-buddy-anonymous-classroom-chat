@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<!--   <title>Blind Buddy - README</title> -->
+  <title>Blind Buddy - Anonymous Learning Platform for Students</title>
+  <meta name="description" content="Blind Buddy is a safe, anonymous platform that empowers shy students to ask questions and engage in discussions without fear of judgment.">
 </head>
 <body style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #333; background-color: #f9f9f9;">
 
@@ -20,7 +21,9 @@
   </p>
 
   <h2 style="color: #444;">🌐 Live Demo</h2>
-  <p><strong>🔗 Coming Soon</strong></p>
+  <p>
+    <a href="https://blind-buddy.onrender.com/" target="_blank"><strong>🔗 Visit Live App</strong></a>
+  </p>
 
   <h2 style="color: #444;">💡 The Problem</h2>
   <ul>
@@ -90,10 +93,17 @@ cd backend
 npm install
 npm run dev
   </pre>
-  <p>Create a <code>.env</code> file:</p>
+  <p>Create a <code>.env</code> file with the following configuration:</p>
   <pre style="background: #eee; padding: 10px;">
-MONGO_URI=your_mongodb_connection_string
-PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+PORT=5001
+JWT_SECRET=your_jwt_secret_key
+
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+NODE_ENV=production
   </pre>
 
   <h3 style="color: #555;">Setup Frontend</h3>

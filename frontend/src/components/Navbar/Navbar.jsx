@@ -22,7 +22,7 @@ function Navbar({ clicked, isClicked }) {
           </NavLink>
         </li>
         <li className="NavElements4">
-          <NavLink className="Link" to="/">
+          <NavLink className="Link" to="/chat">
             Chat
           </NavLink>
         </li>

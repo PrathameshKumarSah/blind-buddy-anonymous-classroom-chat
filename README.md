@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Blind Buddy - Anonymous Learning Platform for Students</title>
   <meta name="description" content="Blind Buddy is a safe, anonymous platform that empowers shy students to ask questions and engage in discussions without fear of judgment.">
 </head>
 <body style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #333; background-color: #f9f9f9;">

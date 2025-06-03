@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink } from "react-router-dom";
+import { useAuthStore } from "../../store/useAuthStore";
+import { MessageCircleMore, MessageCircleMoreIcon } from "lucide-react";
 
 function Navbar({ clicked, isClicked }) {
+  const { authUser } = useAuthStore();
   const handleClicked = () => {
     isClicked(!clicked);
   };
+
+  useEffect(() => {
+    console.log(authUser);
+  }, []);
+
   return (
     <div className="Nav">
       <ul className="NavbarWrapper">
@@ -37,9 +45,15 @@ function Navbar({ clicked, isClicked }) {
           </NavLink>
         </li>
         <li className="NavButton">
-          <NavLink className="Link" to="/login">
-            Login/Signup
-          </NavLink>
+          {authUser ? (
+            <NavLink className="Link flex gap-1 items-center" to="/chat">
+              <MessageCircleMoreIcon /> Chat
+            </NavLink>
+          ) : (
+            <NavLink className="Link" to="/login">
+              Login/Signup
+            </NavLink>
+          )}
         </li>
       </ul>
       {!clicked ? (

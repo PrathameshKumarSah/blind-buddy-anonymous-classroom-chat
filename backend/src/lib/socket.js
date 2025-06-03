@@ -20,18 +20,21 @@ export function getReceiverSocketId(userId) {
 const userSocketMap = {}; // {userId: socketId}
 
 const joinUsersToGroup = async (socket, userId) => {
-  let val = await User.find({_id: userId});
-  val[0].groups.map((grp) => {
-    socket.join(grp, (err) => {
-      if(err) {reject(err); console.log(err);}
-      else resolve(room);
+  try {
+    const user = await User.findById(userId);
+    if (!user) return;
+
+    user.groups.forEach((grp) => {
+      socket.join(grp);
     });
-    // socket.emit('newMessage',`connected to group ${grp}`);
-  })
-}
+  } catch (err) {
+    console.error("Error joining groups:", err);
+  }
+};
+
 
 io.on("connection", (socket) => {
-  console.log("A user connected", socket.id);
+  console.log("A user connected", socket.id, socket.handshake.query.userId);
 
   const userId = socket.handshake.query.userId;
   if (userId) userSocketMap[userId] = socket.id;
@@ -43,7 +46,11 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("A user disconnected", socket.id);
-    delete userSocketMap[userId];
+    // Only remove the socket if it's still the one stored
+    if (userSocketMap[userId] === socket.id) {
+      delete userSocketMap[userId];
+    }
+    // console.log("map:::::::::", userSocketMap);
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });

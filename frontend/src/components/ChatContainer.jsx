@@ -76,7 +76,7 @@ const ChatContainer = () => {
               </time>
             </div>
             <div className="chat-bubble flex flex-col" 
-            onclick={()=>{ alert('helloi')}}>
+            onClick={()=>{ alert('helloi')}}>
               {message.image && (
                 <img
                   src={message.image}

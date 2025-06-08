@@ -3,30 +3,29 @@ import styled from 'styled-components'
 import Typewriter from 'typewriter-effect';
 import { ArrowRight } from "lucide-react";
 
-
 const Title = styled.h2`
-font-size: 3.4rem;
-text-transform: capitalize;
-width: 100%;
-font-weight: 600;
-color: #000000;
-align-self: flex-start;
-font-family: 'Sora', sans-serif;
+  font-size: 3rem;
+  text-transform: capitalize;
+  width: 100%;
+  font-weight: 600;
+  color: #000000;
+  font-family: 'Sora', sans-serif;
 
- span{
-   text-transform: uppercase;
-   font-family: "Akaya Telivigala", cursive;
-}
- .text-1{
- color: yellow;
- }
- .text-2{
- color: orange;
- }
- .text-3{
- color: red;
- }
-`
+  span {
+    text-transform: uppercase;
+    font-family: "Akaya Telivigala", cursive;
+  }
+
+  .text-1 { color: yellow; }
+  .text-2 { color: orange; }
+  .text-3 { color: red; }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    text-align: center;
+  }
+`;
+
 const Titles = styled.h3`
   font-size: 1.3rem;
   font-family: "Akaya Telivigala", cursive;
@@ -35,8 +34,12 @@ const Titles = styled.h3`
   font-weight: bolder;
   margin-bottom: 2rem;
   width: 90%;
-  align-self: flex-start;
-`
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    text-align: center;
+  }
+`;
 
 
 const TypeWriterText = () => {
@@ -69,7 +72,7 @@ const TypeWriterText = () => {
      </>
      <Titles>Fear To Communicate? Try something New.
       <br/>
-      <a href={'/chat'} className='btn bg-blue-500 text-black px-6 py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400' style={{backgroundColor:'#fade08'}}> Chat Now 
+      <a href={'/chat'} className='btn bg-blue-500 text-black px-6 py-3 rounded-lg mt-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400' style={{backgroundColor:'#fade08'}}> Chat Now 
       <ArrowRight className="size-5 text-base-content/40 text-black" /></a>
      </Titles>
      </>

@@ -196,8 +196,8 @@ const Sidebar = () => {
         return aOnline === bOnline ? 0 : aOnline ? -1 : 1;
       });
 
-  console.log("group::::", grp);
-  console.log("filteredUsers::", filteredUsers);
+  // console.log("group::::", grp);
+  // console.log("filteredUsers::", filteredUsers);
 
   if (isUsersLoading) return <SidebarSkeleton />;
 

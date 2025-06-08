@@ -18,35 +18,46 @@ import Menu from '../components/Menu/Menu'
 import { useState } from 'react'
 
 const Section = styled.section`
-min-height: 100vh;
-width: 80vw;
-position: relative;
-background-color: white;
-margin-left: 100px
+  min-height: 100vh;
+  width: 90vw;
+  margin: auto;
+  position: relative;
+  background-color: white;
 
-`
+  @media (max-width: 768px) {
+    width: 100vw;
+    padding: 1rem;
+  }
+`;
+
 const Container = styled.div`
-width: 100%;
-min-height: 80vh;
-margin: 0 auto;
-// background-color: lightblue;
+  width: 100%;
+  min-height: 80vh;
+  margin: 0 auto;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-
-display: flex;
-justify-content: center;
-align-items: center;
-`
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    gap: 2rem;
+  }
+`;
 
 const Box = styled.div`
-width : 45%;
-height: 50%;
-display: flex;
-flex-direction: column;
-justify-contact: center;
+  width: 45%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-align-items: center;
-`
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+`;
+
 
 function Home () {
   const[clicked,isClicked] = useState(false)

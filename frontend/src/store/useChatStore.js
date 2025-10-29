@@ -9,7 +9,7 @@ export const useChatStore = create((set, get) => ({
   selectedUser: null,
   isUsersLoading: false,
   isMessagesLoading: false,
-  isCreateGroup:false,
+  isCreateGroup: false,
   groups: [],
 
   getUsers: async () => {
@@ -17,7 +17,7 @@ export const useChatStore = create((set, get) => ({
     try {
       const res = await axiosInstance.get("/messages/users");
       // console.log(res.data);
-      set({ users: res.data.filteredUsers, });
+      set({ users: res.data.filteredUsers });
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -32,9 +32,8 @@ export const useChatStore = create((set, get) => ({
       set({ groups: res.data.myGroup });
     } catch (error) {
       toast.error(error.response.data.message);
-    } 
+    }
   },
-
 
   getMessages: async (userId) => {
     set({ isMessagesLoading: true });
@@ -51,16 +50,11 @@ export const useChatStore = create((set, get) => ({
 
   sendMessage: async (messageData) => {
     const { selectedUser, messages } = get();
-    // console.log("send msg");
-    // console.log(selectedUser);
-    // console.log(messages);
     try {
-      // if(selectedUser._id){
-      //   const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
-      // } else{
-      //   const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
-      // }
-      const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
+      const res = await axiosInstance.post(
+        `/messages/send/${selectedUser._id}`,
+        messageData
+      );
       set({ messages: [...messages, res.data] });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -74,12 +68,21 @@ export const useChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
 
     socket.on("newMessage", (newMessage) => {
-      let isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser && !(newMessage.receiverId === selectedUser._id) ) return;
+      let isMessageSentFromSelectedUser =
+        newMessage.senderId === selectedUser._id;
+      if (
+        !isMessageSentFromSelectedUser &&
+        !(newMessage.receiverId === selectedUser._id)
+      )
+        return;
 
       set({
         messages: [...get().messages, newMessage],
       });
+    });
+
+    socket.on("messageDeleted", () => {
+      get().getMessages(selectedUser._id);
     });
   },
 
@@ -89,8 +92,8 @@ export const useChatStore = create((set, get) => ({
   },
 
   setSelectedUser: (selectedUser) => set({ selectedUser }),
-  
-  createGroup:async (formData) => {
+
+  createGroup: async (formData) => {
     set({ isCreateGroup: true });
     try {
       const res = await axiosInstance.post("/messages/create-group", formData);
@@ -100,6 +103,17 @@ export const useChatStore = create((set, get) => ({
       toast.error(error.response.data.message);
     } finally {
       set({ isCreateGroup: false });
+    }
+  },
+
+  deleteMessage: async (messageId) => {
+    const { messages } = get();
+    try {
+      await axiosInstance.delete(`/messages/${messageId}`);
+      set({ messages: messages.filter((msg) => msg._id !== messageId) });
+      toast.success("Message deleted");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to delete message");
     }
   },
 }));

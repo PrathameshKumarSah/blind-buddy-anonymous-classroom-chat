@@ -1,6 +1,6 @@
 import express from "express";
 import { protectRoute } from "../middleware/auth.middleware.js";
-import { getMessages, getUsersForSidebar, sendMessage, createGroup, getGroups } from "../controllers/message.controller.js";
+import { getMessages, getUsersForSidebar, sendMessage, createGroup, getGroups, deleteMessage } from "../controllers/message.controller.js";
 
 const router = express.Router();
 
@@ -12,6 +12,8 @@ router.post("/create-group", protectRoute, createGroup);
 router.get("/groups", protectRoute, getGroups);
 
 router.get("/:id", protectRoute, getMessages);
+router.delete("/:messageId", protectRoute, deleteMessage);
+
 // router.post("/groups", async (req, res) => {
 //     const { name, members } = req.body;
 //     const group = new Group({ name, members });

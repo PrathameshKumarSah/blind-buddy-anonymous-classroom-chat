@@ -8,25 +8,31 @@ import { getReceiverSocketId, io } from "../lib/socket.js";
 export const getUsersForSidebar = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
-    const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
-    res.status(200).json({filteredUsers});
+    const filteredUsers = await User.find({
+      _id: { $ne: loggedInUserId },
+    }).select("-password");
+    res.status(200).json({ filteredUsers });
   } catch (error) {
     console.error("Error in getUsersForSidebar: ", error.message);
     res.status(500).json({ error: "Internal server error" });
-  } 
+  }
 };
 
-export const getGroups= async (req, res) => {
+export const getGroups = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
-    const myGroup = await Group.find({$or: [{course: req.user.course}, {$and: [ {course: req.user.course}, {year: req.user.year} ]}] }).select("-course");
-    res.status(200).json({myGroup});
+    const myGroup = await Group.find({
+      $or: [
+        { course: req.user.course },
+        { $and: [{ course: req.user.course }, { year: req.user.year }] },
+      ],
+    }).select("-course");
+    res.status(200).json({ myGroup });
   } catch (error) {
     console.error("Error in get Groups: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 export const getMessages = async (req, res) => {
   try {
@@ -36,8 +42,7 @@ export const getMessages = async (req, res) => {
       $or: [
         { senderId: myId, receiverId: userToChatId },
         { senderId: userToChatId, receiverId: myId },
-        {receiverId:userToChatId },
-
+        { receiverId: userToChatId },
       ],
     });
 
@@ -56,31 +61,30 @@ export const sendMessage = async (req, res) => {
 
     let imageUrl;
     if (image) {
-      // Upload base64 image to cloudinary
+      // Upload base64 image to cloudinary ( not supporting file upload directly bc frontend is react)
       const uploadResponse = await cloudinary.uploader.upload(image);
       imageUrl = uploadResponse.secure_url;
     }
 
     // check receiver id is group
-    const checkGrp = await Group.find({_id:receiverId});
+    const checkGrp = await Group.find({ _id: receiverId });
 
-    let newMessage ;
-    if(checkGrp.length==0){
-     newMessage = new Message({
+    let newMessage;
+    if (checkGrp.length == 0) {
+      newMessage = new Message({
         senderId,
         receiverId,
         text,
         image: imageUrl,
-        msgType:'p',
+        msgType: "p",
       });
-    }
-    else{
+    } else {
       newMessage = new Message({
-        senderId:receiverId,
-        receiverId:senderId,
+        senderId: receiverId,
+        receiverId: senderId,
         text,
         image: imageUrl,
-        msgType:'g',
+        msgType: "g",
       });
     }
 
@@ -88,13 +92,12 @@ export const sendMessage = async (req, res) => {
 
     // start of socket work
     // when new msg come it always go to group/ if
-    const members = await Group.findOne({_id: receiverId});
+    const members = await Group.findOne({ _id: receiverId });
     if (members) {
       // get only those group members socket id which present online
       io.to(members.name).emit("newMessage", newMessage);
       // members.members.map(id => io.to(id.toString()).emit("newMessage", newMessage)); // not send same msg to sendetr also
-
-    } else{
+    } else {
       const receiverSocketId = getReceiverSocketId(receiverId);
       io.to(receiverSocketId).emit("newMessage", newMessage);
     }
@@ -121,15 +124,58 @@ export const createGroup = async (req, res) => {
     await newGroup.save();
 
     let updateUser = await User.updateOne(
-      {_id: senderId},
-      {$push: {groups: name}}
+      { _id: senderId },
+      { $push: { groups: name } }
     );
 
     // add multiple user of same course and year
     res.status(201).json("Created Group Successfully!");
-    
   } catch (error) {
     console.error("Error in getMessages controller: ", error.message);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+/**
+ * DELETE /messages/:messageId
+ * Securely deletes a message if the requester is the sender.
+ */
+export const deleteMessage = async (req, res) => {
+  try {
+    const { messageId } = req.params;
+    const userId = req.user._id;
+
+    // Find message
+    const message = await Message.findById(messageId);
+    if (!message) {
+      return res.status(404).json({ message: "Message not found" });
+    }
+
+    // Security check — only sender can delete
+    if (message.senderId.toString() !== userId.toString()) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to delete this message" });
+    }
+
+    await Message.findByIdAndDelete(messageId);
+
+    // Emit socket event so receiver’s chat updates instantly
+    const receiverSocketId = getReceiverSocketId(message.receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("messageDeleted", { messageId });
+    }
+
+    const senderSocketId = getReceiverSocketId(userId);
+    if (senderSocketId) {
+      io.to(senderSocketId).emit("messageDeleted");
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Message deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

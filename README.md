@@ -94,7 +94,7 @@ npm run dev
   </pre>
   <p>Create a <code>.env</code> file with the following configuration:</p>
   <pre style="background: #eee; padding: 10px;">
-MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI=mongodb://<username>:<password>@localhost:27017/<databaseName>
 PORT=5001
 JWT_SECRET=your_jwt_secret_key
 
@@ -102,7 +102,7 @@ CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
-NODE_ENV=production
+NODE_ENV=development
   </pre>
 
   <h3 style="color: #555;">Setup Frontend</h3>

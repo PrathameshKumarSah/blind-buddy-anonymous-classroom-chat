@@ -94,7 +94,7 @@ npm run dev
   </pre>
   <p>Create a <code>.env</code> file with the following configuration:</p>
   <pre style="background: #eee; padding: 10px;">
-MONGODB_URI=mongodb://<username>:<password>@localhost:27017/<databaseName>
+MONGODB_URI=mongodb://username:yourpassword@localhost:27017/databaseName
 PORT=5001
 JWT_SECRET=your_jwt_secret_key
 

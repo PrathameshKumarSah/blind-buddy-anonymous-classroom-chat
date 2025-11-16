@@ -1,12 +1,26 @@
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
-import {  Send, X } from "lucide-react";
+import {  Image, Send, X } from "lucide-react";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      alert("Please select a valid image file.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const removeImage = () => {
     setImagePreview(null);
@@ -63,22 +77,22 @@ const MessageInput = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          {/* <input
+          <input
             type="file"
             accept="image/*"
             className="hidden"
             ref={fileInputRef}
             onChange={handleImageChange}
-          /> */}
+          />
 
-          {/* <button
+          <button
             type="button"
             className={`hidden sm:flex btn btn-circle
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
-            <Image size={20} />
-          </button> */}
+            <Image className="size-5" />
+          </button>
         </div>
         <button
           type="submit"

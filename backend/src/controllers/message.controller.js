@@ -1,6 +1,8 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import Group from "../models/group.model.js";
+import { sendAndStoreImage } from "../utils/telegram/upload-to-telegram.js";
+// import dotenv from "dotenv";
 
 import cloudinary from "../lib/cloudinary.js";
 import { getReceiverSocketId, io } from "../lib/socket.js";
@@ -57,13 +59,18 @@ export const sendMessage = async (req, res) => {
   try {
     const { text, image } = req.body;
     const { id: receiverId } = req.params;
+    console.log("Receiver ID:", receiverId);
     const senderId = req.user._id;
 
     let imageUrl;
     if (image) {
       // Upload base64 image to cloudinary ( not supporting file upload directly bc frontend is react)
-      const uploadResponse = await cloudinary.uploader.upload(image);
-      imageUrl = uploadResponse.secure_url;
+      // const uploadResponse = await cloudinary.uploader.upload(image);
+      // imageUrl = uploadResponse.secure_url;
+
+      const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+
+      imageUrl = await sendAndStoreImage(image, TELEGRAM_CHAT_ID);
     }
 
     // check receiver id is group

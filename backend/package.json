@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
+    "axios": "^1.13.2",
     "bcryptjs": "^2.4.3",
     "chat-app": "file:..",
     "cloudinary": "^2.5.1",
